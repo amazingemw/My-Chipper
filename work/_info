@@ -8,18 +8,39 @@ z2
 !i10f 100
 cModel Technology
 Z0 dC:/Modeltech_pe_edu_10.4a/examples/My Chipper
+vdirectandfill
+!s110 1495873208
+!i10b 1
+!s100 23F:GQOImUic@[Z^1K;9m2
+I<77Czma8JnnZ6J4[9X4530
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z2 w1495873200
+8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/directandfill.v
+FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/directandfill.v
+L0 1
+Z3 OP;L;10.4a;61
+r1
+!s85 0
+31
+!s108 1495873208.000000
+!s107 C:/Modeltech_pe_edu_10.4a/examples/My Chipper/directandfill.v|
+!s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/directandfill.v|
+!s101 -O0
+!i113 1
+Z4 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 vejector
 !s110 1495802111
 !i10b 1
 !s100 O:_T2NH@SK]i[@eb3ECA:3
 IO1_<]kic3zz4T>:Fhl<<_2
-Z1 VDg1SIo80bB@j0V0VzS_@n1
+R1
 R0
 w1495720720
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector.v
 L0 1
-Z2 OP;L;10.4a;61
+R3
 r1
 !s85 0
 31
@@ -28,7 +49,7 @@ r1
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector.v|
 !s101 -O0
 !i113 1
-Z3 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+R4
 vejector_tb
 !s110 1495802115
 !i10b 1
@@ -40,7 +61,7 @@ w1495720598
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tb.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tb.v
 L0 1
-R2
+R3
 r1
 !s85 0
 31
@@ -49,7 +70,7 @@ r1
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tb.v|
 !s101 -O0
 !i113 1
-R3
+R4
 vejector_tbtest
 !s110 1495812690
 !i10b 1
@@ -61,7 +82,7 @@ w1495812687
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tbtest.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tbtest.v
 L0 1
-R2
+R3
 r1
 !s85 0
 31
@@ -70,7 +91,7 @@ r1
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejector_tbtest.v|
 !s101 -O0
 !i113 1
-R3
+R4
 vejectortest
 !s110 1495810405
 !i10b 1
@@ -82,7 +103,7 @@ w1495810398
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejectortest.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejectortest.v
 L0 1
-R2
+R3
 r1
 !s85 0
 31
@@ -91,7 +112,7 @@ r1
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/ejectortest.v|
 !s101 -O0
 !i113 1
-R3
+R4
 vha
 !s110 1495704052
 !i10b 1
@@ -103,7 +124,7 @@ w1495704041
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/test.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/test.v
 L0 1
-R2
+R3
 r1
 !s85 0
 31
@@ -112,25 +133,26 @@ r1
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/test.v|
 !s101 -O0
 !i113 1
-R3
+R4
 vinjector
-!s110 1495871511
+!s110 1495887154
 !i10b 1
-!s100 Q0LbWXi9ENMS>C5?jNd^g1
-I@lIfT>4ch936k@`P^V5G_0
+!s100 9HY?IdeQBTgDYa]?YGc4S1
+IKeh144_=8FZG17OGPg^oO0
 R1
 R0
-w1495871507
+R2
 8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v
 FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v
+Fdirectandfill.v
 L0 1
-R2
+R3
 r1
 !s85 0
 31
-!s108 1495871511.000000
-!s107 C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v|
+!s108 1495887154.000000
+!s107 directandfill.v|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v|
 !s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v|
 !s101 -O0
 !i113 1
-R3
+R4

@@ -1,3 +1,4 @@
+
 module injector (
 northad,
 southad,
@@ -12,7 +13,8 @@ wad,
 localndir,
 localsdir,
 localedir,
-localwdir
+localwdir,
+flagvalue
 );
 
 input [5:0] northad;
@@ -21,6 +23,7 @@ input [5:0] eastad;
 input [5:0] westad;
 input [5:0] localad;
 input clk;
+input flagvalue;
 output [5:0] nad;
 output [5:0] sad;
 output [5:0] ead;
@@ -36,6 +39,7 @@ wire [5:0] westad;
 wire [5:0] eastad;       //0 is from east, 1 from west, 2 from north, 3 from south 
 wire [5:0] localadd;
 wire clk;
+wire flagvalue;
 reg [5:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
 reg [5:0] sad;
 reg [5:0] ead;
@@ -45,27 +49,34 @@ reg [4:0] localsdir;
 reg [4:0] localedir;
 reg [4:0] localwdir;
 
-reg [2:0] col;
-reg [2:0] row;
+
 reg flag = 0;
+
+always @(flagvalue)
+begin
+flag = flagvalue;
+end
 
 always @(posedge clk)
 begin
- direction(northad, localad, nad,localndir);
+ direction(northad, localad, nad, localndir, flag);
  if (flag === 0) 
- direction(southad, localad, sad,localsdir);
+ direction(southad, localad, sad, localsdir, flag);
  if (flag === 0)
- direction(eastad, localad, ead,localedir);
+ direction(eastad, localad, ead, localedir, flag);
  if (flag === 0)
- direction(westad, localad, wad,localwdir);
+ direction(westad, localad, wad,localwdir, flag);
 end
 
+reg [2:0] col;
+reg [2:0] row;
 
 task direction;
 	input [5:0] addr;
 	input [5:0] localad;
 	output [5:0] adr;
 	output [4:0] dir;
+	output flag;
 
 	begin
 	row = addr[5:3];  //Destination x coordinate
@@ -98,6 +109,4 @@ endtask
 
 endmodule
 
-		
-		
-			
+
