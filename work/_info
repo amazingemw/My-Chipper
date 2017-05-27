@@ -113,3 +113,24 @@ r1
 !s101 -O0
 !i113 1
 R3
+vinjector
+!s110 1495868626
+!i10b 1
+!s100 Nied202CG;3g?f5BL:9zB0
+I]I;ebHj@7I^Qmf1^MWH?e3
+R1
+R0
+w1495868621
+8C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v
+FC:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v
+L0 1
+R2
+r1
+!s85 0
+31
+!s108 1495868625.000000
+!s107 C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v|
+!s90 -reportprogress|300|-work|work|C:/Modeltech_pe_edu_10.4a/examples/My Chipper/injector.v|
+!s101 -O0
+!i113 1
+R3
