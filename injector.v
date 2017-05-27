@@ -47,26 +47,31 @@ reg [4:0] localwdir;
 
 reg [2:0] col;
 reg [2:0] row;
+reg flag = 0;
 
 always @(posedge clk)
 begin
- direction(northad,nad,localndir);
- direction(southad,sad,localsdir);
- direction(eastad,ead,localedir);
- direction(westad,wad,localwdir);
+ direction(northad, localad, nad,localndir);
+ if (flag === 0) 
+ direction(southad, localad, sad,localsdir);
+ if (flag === 0)
+ direction(eastad, localad, ead,localedir);
+ if (flag === 0)
+ direction(westad, localad, wad,localwdir);
 end
 
 
 task direction;
 	input [5:0] addr;
+	input [5:0] localad;
 	output [5:0] adr;
 	output [4:0] dir;
 
 	begin
 	row = addr[5:3];  //Destination x coordinate
 	col = addr[2:0];  //Destination y coordinate
-	adr = addr;
 	if (addr === 6'bz) begin
+		adr = localad;	
 		if ( col > 3'b100) begin
 			dir = 5'b00001;             	 //EAST
         	end
@@ -81,9 +86,12 @@ task direction;
 				dir = 5'b01000;             //SOUTH
         		end
 			if ( row === 3'b100) begin
-				dir = 5'b10000;             //LOCAL            
+				dir = 5'b10000; 	    //LOCAL    
+				flag = 1;        
         		end
         	end
+	end else begin
+		adr = addr;
 	end
 	end
 endtask
