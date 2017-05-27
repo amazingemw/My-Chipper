@@ -1,0 +1,34 @@
+module injector (
+addr,
+localadd,
+clk,
+adr,
+localdir
+);
+
+input [5:0] addr [0:3];
+input clk;
+input [5:0] localdat;
+
+output [5:0] adr [0:3];
+output [5:0] localdir;
+
+wire [5:0] addr [0:3];      //0 is from east, 1 from west, 2 from north, 3 from south 
+
+reg [4:0] adr [0:4];       //0 is to east, 1 to west, 2 to north, 3 to south 
+reg [4:0] localdir;
+
+always @(posedge clk)
+begin
+	for (i=0;i<4;i+1) begin
+		if (addr[i] === 5'bz) begin
+			adr[i] = localdat;
+		end else begin
+			adr[i] = addr[i];
+		end
+	end
+end
+
+		
+		
+			
