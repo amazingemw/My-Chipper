@@ -9,6 +9,10 @@ nad,
 sad,
 ead,
 wad,
+/*localndir,
+localsdir,
+localedir,
+localwdir*/
 );
 
 input [9:0] northad;
@@ -22,6 +26,11 @@ output [9:0] sad;
 output [9:0] ead;
 output [9:0] wad;
 
+
+/*output [4:0] localndir;
+output [4:0] localsdir;
+output [4:0] localedir;
+output [4:0] localwdir;*/
 
 wire [9:0] northad;
 wire [9:0] southad;
@@ -61,7 +70,7 @@ localsdir = 3'b111;
 localedir = 3'b111;               
 localwdir = 3'b111;               
   			     
-if(nad[5:0] !== 6'bz)        //checking validity of data in channel 
+if(nad[5:0] !== 6'bz)       //checking validity of data in channel 
 nvalid = 1;                  //and setting validity bits for each channel
 if(sad[5:0] !== 6'bz)
 svalid = 1;
@@ -75,12 +84,12 @@ always @(posedge clk)
 begin
  directandfill(northad[5:0], localad, nad[5:0], localndir);     //function to fill a blank channel
  directandfill(southad[5:0], localad, sad[5:0], localsdir);     //with a local channel
- directandfill( eastad[5:0], localad, ead[5:0], localedir);
- directandfill( westad[5:0], localad, wad[5:0], localwdir);
+ directandfill(eastad[5:0], localad, ead[5:0], localedir);
+ directandfill(westad[5:0], localad, wad[5:0], localwdir);
 end
 
 
-reg [2:0] col;                //global variables for task directandfill
+reg [2:0] col;    //global variables for task directandfill
 reg [2:0] row;
 
 task directandfill;
