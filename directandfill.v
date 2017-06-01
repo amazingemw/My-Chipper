@@ -10,8 +10,8 @@ task direction;
 	output flag;
 
 	begin
-	row = addr[5:3];  //Destination x coordinate
-	col = addr[2:0];  //Destination y coordinate
+	row = localad[5:3];  //Destination x coordinate
+	col = localad[2:0];  //Destination y coordinate
 	if (addr === 6'bz) begin
 		adr = localad;	
 		if ( col > 3'b100) begin

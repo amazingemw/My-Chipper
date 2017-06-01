@@ -1,8 +1,8 @@
-module directandfill_task();
+module directandfill();
 reg [2:0] col;
 reg [2:0] row;
 
-task directandfill;
+task direction;
 	input [5:0] addr;
 	input [5:0] localad;
 	output [5:0] adr;

@@ -13,8 +13,7 @@ wad,
 localndir,
 localsdir,
 localedir,
-localwdir,
-flagvalue
+localwdir
 );
 
 input [5:0] northad;
@@ -23,7 +22,6 @@ input [5:0] eastad;
 input [5:0] westad;
 input [5:0] localad;
 input clk;
-input flagvalue;
 output [5:0] nad;
 output [5:0] sad;
 output [5:0] ead;
@@ -37,9 +35,8 @@ wire [5:0] northad;
 wire [5:0] southad;
 wire [5:0] westad;
 wire [5:0] eastad;       //0 is from east, 1 from west, 2 from north, 3 from south 
-wire [5:0] localadd;
+wire [5:0] localad;
 wire clk;
-wire flagvalue;
 reg [5:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
 reg [5:0] sad;
 reg [5:0] ead;
@@ -52,20 +49,17 @@ reg [4:0] localwdir;
 
 reg flag = 0;
 
-always @(flagvalue)
-begin
-flag = flagvalue;
+initial begin
+flag=0;
 end
 
 always @(posedge clk)
 begin
- direction(northad, localad, nad, localndir, flag);
- if (flag === 0) 
- direction(southad, localad, sad, localsdir, flag);
- if (flag === 0)
- direction(eastad, localad, ead, localedir, flag);
- if (flag === 0)
- direction(westad, localad, wad,localwdir, flag);
+ flag = 0;
+ direction(northad, localad, nad, localndir, flag); 
+ #1 direction(southad, localad, sad, localsdir, flag);
+ #1 direction(eastad, localad, ead, localedir, flag);
+ #1 direction(westad, localad, wad,localwdir, flag);
 end
 
 reg [2:0] col;
@@ -79,10 +73,11 @@ task direction;
 	output flag;
 
 	begin
-	row = addr[5:3];  //Destination x coordinate
-	col = addr[2:0];  //Destination y coordinate
-	if (addr === 6'bz) begin
-		adr = localad;	
+	row = localad[5:3];  //Destination x coordinate
+	col = localad[2:0];  //Destination y coordinate
+	if (addr === 6'bz && flag !== 1) begin
+		adr = localad;
+		flag = 1;	
 		if ( col > 3'b100) begin
 			dir = 5'b00001;             	 //EAST
         	end
@@ -98,11 +93,11 @@ task direction;
         		end
 			if ( row === 3'b100) begin
 				dir = 5'b10000; 	    //LOCAL    
-				flag = 1;        
-        		end
+			end
         	end
 	end else begin
 		adr = addr;
+		dir = 6'bz;
 	end
 	end
 endtask
