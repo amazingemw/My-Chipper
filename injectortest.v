@@ -34,49 +34,46 @@ reg [9:0] sad;
 reg [9:0] ead;
 reg [9:0] wad;
 
-reg [2:0] localndir;         //direction from router
+/*reg [2:0] localndir;         //direction from router
 reg [2:0] localsdir;
 reg [2:0] localedir;
-reg [2:0] localwdir;
+reg [2:0] localwdir;*/
 
-reg nvalid=0;                  //If the channel contains valid data
+/*reg nvalid=0;                  //If the channel contains valid data
 reg svalid=0;
 reg evalid=0;
-reg wvalid=0;
+reg wvalid=0;*/
 
 
 initial begin
-nad [5:0] = northad [5:0];   //encoding the destination address in o/p
-sad [5:0] = southad [5:0];  
-ead [5:0] = eastad [5:0];
-wad [5:0] = westad [5:0];
-
-nad [9] = northad [9];       //encoding the golden bit in output
-sad [9] = southad [9];       //from i/p
-ead [9] = eastad [9];               
-wad [9] = westad [9];              
-                                      
-localndir = 3'b111;  
-localsdir = 3'b111;        
-localedir = 3'b111;               
-localwdir = 3'b111;               
+nad [8:6] = 3'b111; 
+sad [8:6] = 3'b111; 
+ead [8:6] = 3'b111; 
+wad [8:6] = 3'b111;             
   			     
-if(nad[5:0] !== 6'bz)        //checking validity of data in channel 
+/*if(nad[5:0] !== 6'bz)        //checking validity of data in channel 
 nvalid = 1;                  //and setting validity bits for each channel
 if(sad[5:0] !== 6'bz)
 svalid = 1;
 if(ead[5:0] !== 6'bz)
 evalid = 1;
 if(wad[5:0] !== 6'bz)
-wvalid = 1;
+wvalid = 1;*/
 end
 
+always @ (northad,southad,westad,eastad) begin
+nad  = northad ;   //encoding the destination address, direction bits and golden bit
+sad  = southad ;   //to o/p channel
+ead  = eastad ;
+wad  = westad ;      
+end       
+                                      
 always @(posedge clk)
 begin
- directandfill(northad[5:0], localad, nad[5:0], localndir);     //function to fill a blank channel
- directandfill(southad[5:0], localad, sad[5:0], localsdir);     //with a local channel
- directandfill( eastad[5:0], localad, ead[5:0], localedir);
- directandfill( westad[5:0], localad, wad[5:0], localwdir);
+ directandfill(northad[5:0], localad, nad[5:0], nad[8:6]);     //function to fill a blank channel
+ directandfill(southad[5:0], localad, sad[5:0], sad[8:6]);     //with a local channel
+ directandfill( eastad[5:0], localad, ead[5:0], ead[8:6]);
+ directandfill( westad[5:0], localad, wad[5:0], wad[8:6]);
 end
 
 

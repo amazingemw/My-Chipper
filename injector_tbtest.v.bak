@@ -25,25 +25,25 @@ initial begin
   
    //$display("Time\t address Direction");
    //$monitor("%g  \t %b      %b",$time, addr, direct);
-#2  northad = 10'b1000100101; //l
+#1  northad = 10'b1000100101; //l
     southad = 10'bz;   	      //e
     eastad  = 10'b0000101100; //n
     westad  = 10'b0000011100; //w
     localad = 10'b0000100000;
    
-#2  northad = 10'b0000100110; //e
+#1  northad = 10'b0000100110; //e
     southad = 10'b0000000001; //w
     eastad  = 10'bz;          //l
     westad  = 10'b0000010001; //w
     localad = 10'b0000101100; 	
    
-#2  northad = 10'b0000111100; //n
+#1  northad = 10'b0000111100; //n
     southad = 10'b0000000011; //w
     eastad  = 10'b0000001100; //s
     westad  = 10'b0000010101; //e
     localad = 10'b0000001100;
  
-#2  northad = 10'b0000001000; //w
+#1  northad = 10'b0000001000; //w
     southad = 10'b0000110100; //n
     eastad  = 10'bz;          //e
     westad  = 10'b0000100111; //l
