@@ -1,4 +1,3 @@
-
 module injector (
 northad,
 southad,
@@ -10,96 +9,95 @@ nad,
 sad,
 ead,
 wad,
-localndir,
-localsdir,
-localedir,
-localwdir
 );
 
-input [5:0] northad;
-input [5:0] southad;
-input [5:0] eastad;
-input [5:0] westad;
-input [5:0] localad;
+input [9:0] northad;
+input [9:0] southad;
+input [9:0] eastad;
+input [9:0] westad;
+input [9:0] localad;
 input clk;
-output [5:0] nad;
-output [5:0] sad;
-output [5:0] ead;
-output [5:0] wad;
-output [4:0] localndir;
-output [4:0] localsdir;
-output [4:0] localedir;
-output [4:0] localwdir;
+output [9:0] nad;
+output [9:0] sad;
+output [9:0] ead;
+output [9:0] wad;
 
-wire [5:0] northad;
-wire [5:0] southad;
-wire [5:0] westad;
-wire [5:0] eastad;       //0 is from east, 1 from west, 2 from north, 3 from south 
-wire [5:0] localad;
+
+wire [9:0] northad;
+wire [9:0] southad;
+wire [9:0] westad;
+wire [9:0] eastad;           //0 is from east, 1 from west, 2 from north, 3 from south 
+wire [9:0] localad;
 wire clk;
-reg [5:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
-reg [5:0] sad;
-reg [5:0] ead;
-reg [5:0] wad;
-reg [4:0] localndir;
-reg [4:0] localsdir;
-reg [4:0] localedir;
-reg [4:0] localwdir;
+reg [9:0] nad;               //0 is to east, 1 to west, 2 to north, 3 to south 
+reg [9:0] sad;
+reg [9:0] ead;
+reg [9:0] wad;
 
-
-reg flag = 0;
 
 initial begin
-flag=0;
+nad [8:6] = 3'b111; 
+sad [8:6] = 3'b111; 
+ead [8:6] = 3'b111; 
+wad [8:6] = 3'b111;           
 end
 
+always @ (northad,southad,westad,eastad) begin
+nad  = northad ;   //encoding the destination address, direction bits and golden bit
+sad  = southad ;   //to o/p channel
+ead  = eastad ;
+wad  = westad ;      
+end       
+                                      
 always @(posedge clk)
 begin
- flag = 0;
- direction(northad, localad, nad, localndir, flag); 
- #1 direction(southad, localad, sad, localsdir, flag);
- #1 direction(eastad, localad, ead, localedir, flag);
- #1 direction(westad, localad, wad,localwdir, flag);
+ directandfill(northad[5:0], localad, nad[5:0], nad[8:6]);     //function to fill a blank channel
+ directandfill(southad[5:0], localad, sad[5:0], sad[8:6]);     //with a local channel
+ directandfill( eastad[5:0], localad, ead[5:0], ead[8:6]);
+ directandfill( westad[5:0], localad, wad[5:0], wad[8:6]);
 end
 
-reg [2:0] col;
+
+reg [2:0] col;                //global variables for task directandfill
 reg [2:0] row;
 
-task direction;
+task directandfill;
 	input [5:0] addr;
 	input [5:0] localad;
 	output [5:0] adr;
-	output [4:0] dir;
-	output flag;
+	output [2:0] dir;
 
-	begin
-	row = localad[5:3];  //Destination x coordinate
-	col = localad[2:0];  //Destination y coordinate
-	if (addr === 6'bz && flag !== 1) begin
-		adr = localad;
-		flag = 1;	
-		if ( col > 3'b100) begin
-			dir = 5'b00001;             	 //EAST
-        	end
-        	if ( col < 3'b100) begin
-			dir = 5'b00010;             	 //WEST
-        	end 
+	begin 
+	
+        	if (addr === 6'bz) begin
+			adr = localad;
+	 		row = localad[5:3];  
+			col = localad[2:0]; 	
+		end else begin
+			adr = addr;
+			row = addr[5:3];  
+			col = addr[2:0]; 
+		end
+	
+        	if ( col > 3'b100) begin
+			dir = 3'b000;             	//EAST
+       		end
+       		if ( col < 3'b100) begin
+			dir = 5'b001;             	//WEST
+       		end 
 		if ( col === 3'b100) begin
 			if ( row > 3'b100) begin
-				dir = 5'b00100;             //NORTH
-        		end
+				dir = 5'b010;           //NORTH
+       			end
 			if ( row < 3'b100) begin
-				dir = 5'b01000;             //SOUTH
-        		end
+				dir = 5'b011;           //SOUTH
+      			end
 			if ( row === 3'b100) begin
-				dir = 5'b10000; 	    //LOCAL    
+				dir = 5'b100; 	        //LOCAL    
 			end
-        	end
-	end else begin
-		adr = addr;
-		dir = 6'bz;
-	end
-	end
+       		end
+	
+	end  //begin's end
 endtask
 
 endmodule

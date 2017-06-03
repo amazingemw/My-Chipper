@@ -93,7 +93,7 @@ task directandfill;
 	 		row = localad[5:3];  
 			col = localad[2:0]; 	
 		end else begin
-			adr = addr
+			adr = addr;
 			row = addr[5:3];  
 			col = addr[2:0]; 
 		end

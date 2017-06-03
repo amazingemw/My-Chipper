@@ -22,7 +22,7 @@ out_e = 1;
 #3 $display("addr=%b xaxis=%b yaxis=%b direct=%b", addr, xax, yax, direct);
 end
 
-assign addr = out_e ? 6'0 : 6'z;
+assign addr = out_e ? 6'b0 : 6'bz;
 
 always @(posedge clk)
 begin   
