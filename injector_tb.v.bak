@@ -1,80 +1,67 @@
 module injector_tb();
 
-reg [5:0] northad;
-reg [5:0] southad;
-reg [5:0] westad;
-reg [5:0] eastad;       //0 is from east, 1 from west, 2 from north, 3 from south 
-reg [5:0] localadd;
+reg [9:0] northad;
+reg [9:0] southad;
+reg [9:0] westad;
+reg [9:0] eastad;         //0 is from east, 1 from west, 2 from north, 3 from south 
+reg [9:0] localad;
 reg clk;
-reg flagvalue;
-wire [5:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
-wire [5:0] sad;
-wire [5:0] ead;
-wire [5:0] wad;
-wire [4:0] localndir;
-wire [4:0] localsdir;
-wire [4:0] localedir;
-wire [4:0] localwdir;
+wire [9:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
+wire [9:0] sad;
+wire [9:0] ead;
+wire [9:0] wad;
 
 always begin              //Clock generator
-#2 clk=~clk;
+#1 clk=~clk;
 end
 
 initial begin
    clk=0;
-   northad = 6'bz;
-   southad = 6'b000101;
-   eastad  = 6'b100001;
-   westad  = 6'b100111;
-   localadd = 6'b111111;
-   flagvalue = 0;
+   northad = 10'bz;
+   southad = 10'b0000000101;
+   eastad  = 10'b1000100001;
+   westad  = 10'b0000100111;
+   localad = 10'b0000111111;
+  
    //$display("Time\t address Direction");
    //$monitor("%g  \t %b      %b",$time, addr, direct);
-#10 northad = 6'b100101; //l
-    southad = 6'bz; //e
-    eastad  = 6'b101100; //n
-    westad  = 6'bz;//011001; //w
-    localadd = 6'b100000;
-    flagvalue = 1;
-    flagvalue = 0;
-#10 northad = 6'b100110; //e
-    southad = 6'b000001; //w
-    eastad  = 6'bz; //l
-    westad  = 6'b010001; //w
-    localadd = 6'b101100; 	
-    flagvalue = 1;
-    flagvalue = 0;
-#10 northad = 6'b111100; //n
-    southad = 6'b000011; //w
-    eastad  = 6'b001100; //s
-    westad  = 6'b010101; //e
-    localadd = 6'b001100;
-    flagvalue = 1;
-    flagvalue = 0;
-#10 northad = 6'bz;      //w
-    southad = 6'b110100; //n
-    eastad  = 6'bz;//100111; //e
-    westad  = 6'b100111; //l
-    localadd = 6'b000000;	
-   #15 $finish;
+#2  northad = 10'b1000100101; //l
+    southad = 10'bz;   	      //e
+    eastad  = 10'b0000101100; //n
+    westad  = 10'b0000011100; //w
+    localad = 10'b0000100000;
+   
+#2  northad = 10'b0000100110; //e
+    southad = 10'b0000000001; //w
+    eastad  = 10'bz;          //l
+    westad  = 10'b0000010001; //w
+    localad = 10'b0000101100; 	
+   
+#2  northad = 10'b0000111100; //n
+    southad = 10'b0000000011; //w
+    eastad  = 10'b0000001100; //s
+    westad  = 10'b0000010101; //e
+    localad = 10'b0000001100;
+ 
+#2  northad = 10'b0000001000; //w
+    southad = 10'b0000110100; //n
+    eastad  = 10'bz;          //e
+    westad  = 10'b0000100111; //l
+    localad = 10'b0000000000;	
+#5 $finish;
 end
 
-injector U0 (              //Connect DUT to test bench
+injector U0 (   //Connect DUT to test bench
  northad,
  southad,
  westad,
  eastad,        //0 is from east, 1 from west, 2 from north, 3 from south 
- localadd,
+ localad,
  clk,
- flagvalue,
  nad,           //0 is to east, 1 to west, 2 to north, 3 to south 
  sad,
  ead,
  wad,
- localndir,
- localsdir,
- localedir,
- localwdir
 );
 
 endmodule

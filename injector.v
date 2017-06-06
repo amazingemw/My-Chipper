@@ -22,7 +22,6 @@ output [9:0] sad;
 output [9:0] ead;
 output [9:0] wad;
 
-
 wire [9:0] northad;
 wire [9:0] southad;
 wire [9:0] westad;
@@ -35,13 +34,6 @@ reg [9:0] ead;
 reg [9:0] wad;
 
 
-initial begin
-nad [8:6] = 3'b111; 
-sad [8:6] = 3'b111; 
-ead [8:6] = 3'b111; 
-wad [8:6] = 3'b111;           
-end
-
 always @ (northad,southad,westad,eastad) begin
 nad  = northad ;   //encoding the destination address, direction bits and golden bit
 sad  = southad ;   //to o/p channel
@@ -51,10 +43,10 @@ end
                                       
 always @(posedge clk)
 begin
- directandfill(northad[5:0], localad, nad[5:0], nad[8:6]);     //function to fill a blank channel
- directandfill(southad[5:0], localad, sad[5:0], sad[8:6]);     //with a local channel
- directandfill( eastad[5:0], localad, ead[5:0], ead[8:6]);
- directandfill( westad[5:0], localad, wad[5:0], wad[8:6]);
+ directandfill(northad, localad, nad, nad[8:6]);     //function to fill a blank channel
+ directandfill(southad, localad, sad, sad[8:6]);     //with a local channel
+ directandfill( eastad, localad, ead, ead[8:6]);
+ directandfill( westad, localad, wad, wad[8:6]);
 end
 
 
@@ -62,43 +54,41 @@ reg [2:0] col;                //global variables for task directandfill
 reg [2:0] row;
 
 task directandfill;
-	input [5:0] addr;
-	input [5:0] localad;
-	output [5:0] adr;
+	input [9:0] addr;
+	input [9:0] localad;
+	output [9:0] adr;
 	output [2:0] dir;
 
 	begin 
 	
-        	if (addr === 6'bz) begin
+        	if (addr[5:0] === 6'bz) begin
 			adr = localad;
 	 		row = localad[5:3];  
-			col = localad[2:0]; 	
+			col = localad[2:0]; 
+			if ( col > 3'b100) begin
+				dir = 3'b000;             	//EAST
+	       		end
+	       		if ( col < 3'b100) begin
+				dir = 3'b001;             	//WEST
+	       		end 
+			if ( col === 3'b100) begin
+				if ( row > 3'b100) begin
+					dir = 3'b010;           //NORTH
+	       			end
+				if ( row < 3'b100) begin
+					dir = 3'b011;           //SOUTH
+	      			end
+				if ( row === 3'b100) begin
+					dir = 3'b100; 	        //LOCAL    
+				end
+	       		end
 		end else begin
 			adr = addr;
-			row = addr[5:3];  
-			col = addr[2:0]; 
+			dir = addr[8:6];
 		end
-	
-        	if ( col > 3'b100) begin
-			dir = 3'b000;             	//EAST
-       		end
-       		if ( col < 3'b100) begin
-			dir = 5'b001;             	//WEST
-       		end 
-		if ( col === 3'b100) begin
-			if ( row > 3'b100) begin
-				dir = 5'b010;           //NORTH
-       			end
-			if ( row < 3'b100) begin
-				dir = 5'b011;           //SOUTH
-      			end
-			if ( row === 3'b100) begin
-				dir = 5'b100; 	        //LOCAL    
-			end
-       		end
-	
 	end  //begin's end
 endtask
+
 
 endmodule
 
