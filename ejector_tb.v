@@ -1,33 +1,63 @@
 module ejector_tb();
 
+reg [9:0] northad;  
+reg [9:0] southad; 
+reg [9:0] eastad; 
+reg [9:0] westad;
 reg clk;
-reg [5:0] addr;
-wire [4:0] direct;
+wire [9:0] nad;
+wire [9:0] sad;
+wire [9:0] ead;
+wire [9:0] wad;
+wire [9:0] lad;
 
 always begin              //Clock generator
-#2 clk=~clk;
+#1 clk=~clk;
 end
 
 initial begin
-   clk=0;
-   addr = 6'b100101;
-   $display("Time\t Address Direction");
-   $monitor("%g  \t %b      %b",$time, addr, direct);
-   #10 addr = 6'b100101;          //45  must be routed to east
-   #10 addr = 6'b100001;           //41  must be routed to west
-   #10 addr = 6'b110100;           //64  must be routed to north
-   #10 addr = 6'b000100;           //04  must be routed to south
-   #10 addr = 6'b100100;           //44  must be routed to local
-   #15 $finish;
+    clk=0;
+    northad = 10'bz;
+    southad = 10'b0000000101;
+    eastad  = 10'b1000100001;
+    westad  = 10'b0000100100;
+
+#2  northad = 10'b1000100100; //l
+    southad = 10'b0000111111; //e
+    eastad  = 10'b0000101100; //n
+    westad  = 10'b0000011100; //w
+
+#2  northad = 10'b0000100110; //e
+    southad = 10'b0000000001; //w
+    eastad  = 10'b1000101100; //l
+    westad  = 10'b0000100100; //w
+
+#2  northad = 10'b0000111100; //n
+    southad = 10'b0000000011; //w
+    eastad  = 10'b0000100100; //s
+    westad  = 10'b0000010101; //e
+
+#2  northad = 10'b0000100100; //w
+    southad = 10'b0000110100; //n
+    eastad  = 10'bz; //e
+    westad  = 10'b0000100111; //l
+
+#2 $finish;
 end
 
 
-ejector U0 (              //Connect DUT to test bench
-.addr (addr),
-.direct (direct),
-.clk (clk)
+ejector U0 (
+northad,
+southad,
+eastad,
+westad,
+clk,
+nad,
+sad,
+ead,
+wad,
+lad
 );
 
 
 endmodule
-
