@@ -5,18 +5,13 @@ reg [9:0] southad;
 reg [9:0] westad;
 reg [9:0] eastad;         //0 is from east, 1 from west, 2 from north, 3 from south 
 reg [9:0] localad;
-reg clk;
 wire [9:0] nad;           //0 is to east, 1 to west, 2 to north, 3 to south 
 wire [9:0] sad;
 wire [9:0] ead;
 wire [9:0] wad;
 
-always begin              //Clock generator
-#1 clk=~clk;
-end
 
 initial begin
-   clk=0;
    northad = 10'bz;
    southad = 10'b0000000101;
    eastad  = 10'b1000100001;
@@ -57,11 +52,10 @@ injector U0 (   //Connect DUT to test bench
  westad,
  eastad,        //0 is from east, 1 from west, 2 from north, 3 from south 
  localad,
- clk,
  nad,           //0 is to east, 1 to west, 2 to north, 3 to south 
  sad,
  ead,
- wad,
+ wad
 );
 
 endmodule

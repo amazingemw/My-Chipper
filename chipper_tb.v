@@ -4,7 +4,6 @@ reg [9:0] northad;
 reg [9:0] southad; 
 reg [9:0] eastad; 
 reg [9:0] westad;
-reg clk;
 reg [9:0] lin;
 wire [9:0] nad;
 wire [9:0] sad;
@@ -12,12 +11,8 @@ wire [9:0] ead;
 wire [9:0] wad;
 wire [9:0] lad;
 
-always begin              //Clock generator
-#2 clk=~clk;
-end
 
 initial begin
-    clk=0;
     northad = 10'b0000000000;
     southad = 10'b0000000101;
     eastad  = 10'b1000100001;

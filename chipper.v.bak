@@ -70,7 +70,7 @@ injector U1 (
 .nad(stage2_n),
 .sad(stage2_s),
 .ead(stage2_e),
-.wad(stage2_w),
+.wad(stage2_w)
 );
 
 pdn U3 (

@@ -15,7 +15,7 @@ always begin              //Clock generator
 end
 
 initial begin
-#4 clk=0;
+   clk=0;
    north_in = 10'b0011001100; //to south
    south_in = 10'b0010101100; //to north
    east_in  = 10'b1010101100; //to north

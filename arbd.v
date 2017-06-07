@@ -1,20 +1,17 @@
 module arbd(
 inp1,
 inp2,
-clk,
 out1,
 out2
 );
 
 input [9:0] inp1;
 input [9:0] inp2;
-input clk;
 output [9:0] out1;
 output [9:0] out2;
 
 wire [9:0] inp1;
 wire [9:0] inp2;
-wire clk;
 reg [9:0] out1;
 reg [9:0] out2;
 
