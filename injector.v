@@ -4,7 +4,6 @@ southad,
 eastad,
 westad,
 localad,
-clk,
 nad,
 sad,
 ead,
@@ -16,7 +15,6 @@ input [9:0] southad;
 input [9:0] eastad;
 input [9:0] westad;
 input [9:0] localad;
-input clk;
 output [9:0] nad;
 output [9:0] sad;
 output [9:0] ead;
@@ -27,7 +25,6 @@ wire [9:0] southad;
 wire [9:0] westad;
 wire [9:0] eastad;           //0 is from east, 1 from west, 2 from north, 3 from south 
 wire [9:0] localad;
-wire clk;
 reg [9:0] nad;               //0 is to east, 1 to west, 2 to north, 3 to south 
 reg [9:0] sad;
 reg [9:0] ead;

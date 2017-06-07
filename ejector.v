@@ -3,7 +3,6 @@ northad,
 southad,
 eastad,
 westad,
-clk,
 nad,
 sad,
 ead,
@@ -15,7 +14,6 @@ input [9:0] northad;
 input [9:0] southad; 
 input [9:0] eastad; 
 input [9:0] westad;
-input clk;
 output [9:0] nad;
 output [9:0] sad;
 output [9:0] ead;
@@ -26,7 +24,6 @@ wire [9:0] northad;
 wire [9:0] southad; 
 wire [9:0] eastad; 
 wire [9:0] westad;
-wire clk;
 reg [9:0] nad;
 reg [9:0] sad;
 reg [9:0] ead;

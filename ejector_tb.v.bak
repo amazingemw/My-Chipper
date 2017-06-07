@@ -12,7 +12,7 @@ wire [9:0] wad;
 wire [9:0] lad;
 
 always begin              //Clock generator
-#2 clk=~clk;
+#1 clk=~clk;
 end
 
 initial begin

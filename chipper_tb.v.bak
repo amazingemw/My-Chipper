@@ -11,8 +11,6 @@ wire [9:0] sad;
 wire [9:0] ead;
 wire [9:0] wad;
 wire [9:0] lad;
-wire flag;
-wire flagset;
 
 always begin              //Clock generator
 #2 clk=~clk;
@@ -61,13 +59,11 @@ chipper U0 (
 .win(westad),
 .clk(clk),
 .lin(lin),
-.flagset(flagset),
 .nout(nad),
 .sout(sad),
 .eout(ead),
 .wout(wad),
-.lout(lad),
-.flag(flag)
+.lout(lad)
 );
 
 /*cache_miss U1 (
