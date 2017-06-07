@@ -21,7 +21,7 @@ reg [9:0] out2;
 reg gbit1;
 reg gbit2;
        
-always @ (posedge clk) begin
+always @ (inp2) begin
 	if ( inp1[9] == 1'b1 ) begin 
 		if (inp1[8:6] == 3'b010 ) begin 
 			out1[9:0] = inp1[9:0];

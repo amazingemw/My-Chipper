@@ -41,7 +41,7 @@ ead  = eastad ;
 wad  = westad ;      
 end       
                                       
-always @(posedge clk)
+always @(localad)
 begin
  directandfill(northad, localad, nad, nad[8:6]);     //function to fill a blank channel
  directandfill(southad, localad, sad, sad[8:6]);     //with a local channel

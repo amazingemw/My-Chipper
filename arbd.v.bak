@@ -18,7 +18,7 @@ wire clk;
 reg [9:0] out1;
 reg [9:0] out2;
 
-always @ ( negedge clk) begin
+always @ (posedge clk) begin
 	if ( inp1[9] == 1'b1 ) begin 
 		if (inp1[8:6] == 3'b000 ) begin 
 			out1[9:0] = inp1[9:0];

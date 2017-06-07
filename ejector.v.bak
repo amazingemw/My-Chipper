@@ -55,7 +55,7 @@ task ejectout;
 	output [9:0] local;
 
 	begin   
-		[gbo,dir,adr] = addr;
+		{gbo,dir,adr} = addr;
 		row = addr[5:3];  
 		col = addr[2:0]; 
         	if ( col > 3'b100) begin
@@ -73,7 +73,7 @@ task ejectout;
       			end
 			if ( row === 3'b100) begin
 				local = addr;
-				[gbo,dir,adr] = 10'bz;
+				{gbo,dir,adr} = 10'bz;
 			end
        		end
 	end  //begin's end
