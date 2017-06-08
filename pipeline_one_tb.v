@@ -6,7 +6,7 @@ reg ssig;
 reg esig;
 reg wsig;
 reg lsig;
-reg clksig;
+reg clksig;              //To be taken into master module
 wire [9:0] noun;
 wire [9:0] soun;
 wire [9:0] eoun;
@@ -109,18 +109,19 @@ end
 
 
 pipeline_one U0 (
-inc,
-nsig,
-ssig,
-esig,
-wsig,
-lsig,
-clksig,
-noun,
-soun,
-eoun,
-woun,
-loun
+.inc(inc),
+.nsig(nsig),
+.ssig(ssig),
+.esig(esig),
+.wsig(wsig),
+.lsig(lsig),
+.clksig(clksig),
+.noun(noun),
+.soun(soun),
+.eoun(eoun),
+.woun(woun),
+.loun(loun),
+.clk()
 );
 
 

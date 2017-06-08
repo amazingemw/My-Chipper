@@ -1,12 +1,12 @@
 module pipeline_one_tb();
 
-reg [7:0] inc;
+reg [6:0] inc;
 reg nsig;
 reg ssig;
 reg esig;
 reg wsig;
 reg lsig;
-reg clksig;
+reg clksig;              //To be taken into master module
 wire [9:0] noun;
 wire [9:0] soun;
 wire [9:0] eoun;
@@ -120,7 +120,8 @@ noun,
 soun,
 eoun,
 woun,
-loun
+loun,
+.clk()
 );
 
 

@@ -10,7 +10,8 @@ noun,
 soun,
 eoun,
 woun,
-loun
+loun,
+clk
 );
 
 input [6:0] inc;
@@ -25,6 +26,7 @@ output [9:0] soun;
 output [9:0] eoun;
 output [9:0] woun;
 output [9:0] loun;
+output clk;
 
 wire [6:0] inc;
 wire nsig;
@@ -37,9 +39,9 @@ reg [9:0] soun;
 reg [9:0] eoun;
 reg [9:0] woun;
 reg [9:0] loun;
+reg clk;
 
 reg [6:0] pipeline [0:24];
-reg clk;
 integer i;
 integer j;
 integer k;
@@ -56,12 +58,12 @@ woun [8:6] = 3'b000;
 loun [8:6] = 3'b000;
 end
 
-always begin
-#5.5 clk = ~clk;
+always begin              //clock to be taken to main module (take input from main module but use a 
+#5.5 clk = ~clk;          //local clock register which takes main clock value only at 'clocksig' input
 end
 
-always @ (posedge clksig) begin
- clk = 1;
+always @ (posedge clksig) begin     
+ clk = 1;                        //here instead of 'clk = 1', it will be 'local_clk = clk' when main module is made
 end
 
 always @ (nsig or ssig or esig or wsig) begin
