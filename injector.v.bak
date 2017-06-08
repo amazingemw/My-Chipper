@@ -29,14 +29,7 @@ reg [9:0] nad;               //0 is to east, 1 to west, 2 to north, 3 to south
 reg [9:0] sad;
 reg [9:0] ead;
 reg [9:0] wad;
-
-
-/*always @ (northad,southad,westad,eastad) begin
-nad  = northad ;   //encoding the destination address, direction bits and golden bit
-sad  = southad ;   //to o/p channel
-ead  = eastad ;
-wad  = westad ;      
-end   */    
+  
                                       
 always @(northad or localad)
 begin

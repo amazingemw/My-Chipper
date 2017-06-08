@@ -7,7 +7,7 @@ localad,
 nad,
 sad,
 ead,
-wad,
+wad
 );
 
 input [9:0] northad;
