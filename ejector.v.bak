@@ -34,7 +34,7 @@ reg [9:0] wad;
 reg [9:0] lad;
 
 
-always @(posedge clk)
+always @(northad)
 begin
  ejectout(northad, nad[5:0], nad[8:6],nad[9], lad);     //function to fill a blank channel
  ejectout(southad, sad[5:0], sad[8:6],sad[9], lad);     //with a local channel

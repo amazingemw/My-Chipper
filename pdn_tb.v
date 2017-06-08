@@ -4,15 +4,11 @@ reg [9:0] north_in;
 reg [9:0] south_in;
 reg [9:0] west_in;
 reg [9:0] east_in;         //0 is from east, 1 from west, 2 from north, 3 from south 
-reg clk;
 wire [9:0] north_out;           //0 is to east, 1 to west, 2 to north, 3 to south 
 wire [9:0] south_out;
 wire [9:0] east_out;
 wire [9:0] west_out;
 
-always begin              //Clock generator
-#1 clk=~clk;
-end
 
 initial begin
    clk=0;
@@ -48,7 +44,6 @@ pdn U0 (   //Connect DUT to test bench
  south_in,
  west_in,
  east_in,        //0 is from east, 1 from west, 2 from north, 3 from south 
- clk,
  north_out,           //0 is to east, 1 to west, 2 to north, 3 to south 
  south_out,
  east_out,

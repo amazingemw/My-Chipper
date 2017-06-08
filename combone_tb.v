@@ -1,10 +1,9 @@
-module chipper_tb();
+module combone_tb();
 
 reg [9:0] northad;  
 reg [9:0] southad; 
 reg [9:0] eastad; 
 reg [9:0] westad;
-reg clk;
 reg [9:0] lin;
 wire [9:0] nad;
 wire [9:0] sad;
@@ -12,12 +11,8 @@ wire [9:0] ead;
 wire [9:0] wad;
 wire [9:0] lad;
 
-always begin              //Clock generator
-#2 clk=~clk;
-end
 
 initial begin
-    clk=0;
     northad = 10'b0000000000;
     southad = 10'b0000000101;
     eastad  = 10'b1000100001;
@@ -52,12 +47,11 @@ initial begin
 end
 
 
-chipper U0 (
+combone U0 (
 .nin(northad),
 .sin(southad),
 .ein(eastad),
 .win(westad),
-.clk(clk),
 .lin(lin),
 .nout(nad),
 .sout(sad),
@@ -65,11 +59,5 @@ chipper U0 (
 .wout(wad),
 .lout(lad)
 );
-
-/*cache_miss U1 (
-.flag(flag),
-.cachemiss(lin),
-.flagset(flagset)
-);*/
 
 endmodule
