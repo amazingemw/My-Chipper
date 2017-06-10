@@ -7,12 +7,16 @@ reg esig;
 reg wsig;
 reg lsig;
 reg clksig;              //To be taken into master module
+reg clk;
 wire [9:0] noun;
 wire [9:0] soun;
 wire [9:0] eoun;
 wire [9:0] woun;
 wire [9:0] loun;
 
+always begin
+#5.5 clk = ~clk;
+end
 
 initial begin
 
@@ -20,7 +24,8 @@ initial begin
     ssig = 0;
     esig = 0;
     wsig = 0;
-    lsig = 0;  
+    lsig = 0; 
+    clk = 0;	 
 	
 #2  inc  = 7'bz;
     nsig = 1;	
@@ -100,28 +105,27 @@ initial begin
 #2  wsig = 0;	
     inc  = 7'b0010111; //l
     lsig = 1;	
-
-#2  clksig = 1;
+#2  lsig = 0;
+    clksig = 1;
 #1  clksig = 0; 	
 
-#10 $finish;
 end
 
 
 pipeline_one U0 (
-inc,
-nsig,
-ssig,
-esig,
-wsig,
-lsig,
-clksig,
-noun,
-soun,
-eoun,
-woun,
-loun,
-.clk()
+.inc(inc),
+.nsig(nsig),
+.ssig(ssig),
+.esig(esig),
+.wsig(wsig),
+.lsig(lsig),
+.clksig(clksig),
+.clk(clk),
+.noun(noun),
+.soun(soun),
+.eoun(eoun),
+.woun(woun),
+.loun(loun)
 );
 
 

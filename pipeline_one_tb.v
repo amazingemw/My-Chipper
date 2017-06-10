@@ -5,14 +5,18 @@ reg nsig;
 reg ssig;
 reg esig;
 reg wsig;
-reg lsig;
+//reg lsig;
 reg clksig;              //To be taken into master module
+reg clk;
 wire [9:0] noun;
 wire [9:0] soun;
 wire [9:0] eoun;
 wire [9:0] woun;
-wire [9:0] loun;
+//wire [9:0] loun;
 
+always begin
+#5.5 clk = ~clk;
+end
 
 initial begin
 
@@ -20,7 +24,8 @@ initial begin
     ssig = 0;
     esig = 0;
     wsig = 0;
-    lsig = 0;  
+//    lsig = 0; 
+    clk = 0;	 
 	
 #2  inc  = 7'bz;
     nsig = 1;	
@@ -33,11 +38,11 @@ initial begin
 #2  esig = 0;	
     inc  = 7'b0100100;
     wsig = 1;	
-#2  wsig = 0;	
+/*#2  wsig = 0;	
     inc  = 7'b0100111; //l
-    lsig = 1;	
+    lsig = 1;	*/
 
-#2  lsig = 0;
+#2  wsig = 0; //lsig = 0;
     inc  = 7'b1100100; //l
     nsig = 1;
 #2  nsig = 0;	
@@ -49,11 +54,11 @@ initial begin
 #2  esig = 0;	
     inc  = 7'b0011100; //w
     wsig = 1;
-#2  wsig = 0;	
+/*#2  wsig = 0;	
     inc  = 7'b0101100; //l
-    lsig = 1;		
+    lsig = 1;	*/	
 
-#2  lsig = 0;
+#2  wsig = 0; //lsig = 0;
     inc  = 7'b0100110; //e
     nsig = 1;
 #2  nsig = 0;	
@@ -65,11 +70,11 @@ initial begin
 #2  esig = 0;	
     inc  = 7'b0100100; //w
     wsig = 1;	
-#2  wsig = 0;	
+/*#2  wsig = 0;	
     inc  = 7'b0001000; //l
-    lsig = 1;	
+    lsig = 1;	*/
 
-#2  lsig = 0;
+#2  wsig = 0; //lsig = 0;
     inc  = 7'b0111100; //n
     nsig = 1;
 #2  nsig = 0;	
@@ -81,11 +86,11 @@ initial begin
 #2  esig = 0;	
     inc  = 7'b0010101; //e
     wsig = 1;
-#2  wsig = 0;	
+/*#2  wsig = 0;	
     inc  = 7'b0000001; //l
-    lsig = 1;	
+    lsig = 1;	*/
 
-#2  lsig = 0;
+#2  wsig = 0; //lsig = 0;
     inc  = 7'b0100100; //w
     nsig = 1;
 #2  nsig = 0;	
@@ -97,14 +102,13 @@ initial begin
 #2  esig = 0;	
     inc  = 7'b0100111; //l
     wsig = 1;
-#2  wsig = 0;	
+/*#2  wsig = 0;	
     inc  = 7'b0010111; //l
-    lsig = 1;	
-
-#2  clksig = 1;
+    lsig = 1;	*/
+#2  wsig = 0; //lsig = 0;
+    clksig = 1;
 #1  clksig = 0; 	
 
-#10 $finish;
 end
 
 
@@ -114,14 +118,14 @@ pipeline_one U0 (
 .ssig(ssig),
 .esig(esig),
 .wsig(wsig),
-.lsig(lsig),
+//.lsig(lsig),
 .clksig(clksig),
+.clk(clk),
 .noun(noun),
 .soun(soun),
 .eoun(eoun),
-.woun(woun),
-.loun(loun),
-.clk()
+.woun(woun)//,
+//.loun(loun)
 );
 
 

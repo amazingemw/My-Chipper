@@ -1,75 +1,133 @@
 module chipper_tb();
 
-reg [9:0] northad;  
-reg [9:0] southad; 
-reg [9:0] eastad; 
-reg [9:0] westad;
+reg [6:0] inc;
+reg nsig;
+reg ssig;
+reg esig;
+reg wsig;
+//reg lsig;
+reg clksig;              //To be taken into master module
 reg clk;
-reg [9:0] lin;
-wire [9:0] nad;
-wire [9:0] sad;
-wire [9:0] ead;
-wire [9:0] wad;
-wire [9:0] lad;
+wire [9:0] nout;
+wire [9:0] sout;
+wire [9:0] eout;
+wire [9:0] wout;
+wire [9:0] lout;
 
-always begin              //Clock generator
-#2 clk=~clk;
+always begin
+#5.5 clk = ~clk;
 end
 
 initial begin
-    clk=0;
-    northad = 10'b0000000000;
-    southad = 10'b0000000101;
-    eastad  = 10'b1000100001;
-    westad  = 10'b0000100100;
-    lin     = 10'b0000101101;
 
-#4  northad = 10'b1000100100; //l
-    southad = 10'b0000111111; //e
-    eastad  = 10'b0000101100; //n
-    westad  = 10'b0000011100; //w
-    lin     = 10'b0000101101;	
+    nsig = 0;
+    ssig = 0;
+    esig = 0;
+    wsig = 0;
+//    lsig = 0; 
+    clk = 0;	 
+	
+#2  inc  = 7'bz;
+    nsig = 1;	
+#2  nsig = 0;	
+    inc  = 7'b0000101;
+    ssig = 1;	
+#2  ssig = 0;	
+    inc  = 7'b1100001;
+    esig = 1;
+#2  esig = 0;	
+    inc  = 7'b0100100;
+    wsig = 1;	
+/*#2  wsig = 0;	
+    inc  = 7'b0100111; //l
+    lsig = 1;	*/
 
-#4  northad = 10'b0000100110; //e
-    southad = 10'b0000000001; //w
-    eastad  = 10'b1000101100; //l
-    westad  = 10'b0000100100; //w
-    lin     = 10'b0000101000;	
+#2  wsig = 0; //lsig = 0;
+    inc  = 7'b1100100; //l
+    nsig = 1;
+#2  nsig = 0;	
+    inc  = 7'b0111111; //e
+    ssig = 1;
+#2  ssig = 0;	
+    inc  = 7'b0101100; //n
+    esig = 1;
+#2  esig = 0;	
+    inc  = 7'b0011100; //w
+    wsig = 1;
+/*#2  wsig = 0;	
+    inc  = 7'b0101100; //l
+    lsig = 1;	*/	
 
-#4  northad = 10'b0000111100; //n
-    southad = 10'b0000000011; //w
-    eastad  = 10'b0000100100; //s
-    westad  = 10'b0000010101; //e
-    lin     = 10'b0000001010;
+#2  wsig = 0; //lsig = 0;
+    inc  = 7'b0100110; //e
+    nsig = 1;
+#2  nsig = 0;	
+    inc  = 7'b0000001; //w
+    ssig = 1;
+#2  ssig = 0;	
+    inc  = 7'b1101100; //l
+    esig = 1;
+#2  esig = 0;	
+    inc  = 7'b0100100; //w
+    wsig = 1;	
+/*#2  wsig = 0;	
+    inc  = 7'b0001000; //l
+    lsig = 1;	*/
 
-#4  northad = 10'b0000100100; //w
-    southad = 10'b0000110100; //n
-    eastad  = 10'b0000000000; //e
-    westad  = 10'b0000100111; //l
-    lin     = 10'b0000111010;
+#2  wsig = 0; //lsig = 0;
+    inc  = 7'b0111100; //n
+    nsig = 1;
+#2  nsig = 0;	
+    inc  = 7'b0000011; //w
+    ssig = 1;
+#2  ssig = 0;	
+    inc  = 7'b0100100; //s
+    esig = 1;
+#2  esig = 0;	
+    inc  = 7'b0010101; //e
+    wsig = 1;
+/*#2  wsig = 0;	
+    inc  = 7'b0000001; //l
+    lsig = 1;	*/
 
-#4 $finish;
+#2  wsig = 0; //lsig = 0;
+    inc  = 7'b0100100; //w
+    nsig = 1;
+#2  nsig = 0;	
+    inc  = 7'b0110100; //n
+    ssig = 1;
+#2  ssig = 0;	
+    inc  = 7'bz; //e
+    esig = 1;
+#2  esig = 0;	
+    inc  = 7'b0100111; //l
+    wsig = 1;
+/*#2  wsig = 0;	
+    inc  = 7'b0010111; //l
+    lsig = 1;	*/
+#2  wsig = 0; //lsig = 0;
+    clksig = 1;
+#1  clksig = 0; 	
+
 end
 
 
 chipper U0 (
-.nin(northad),
-.sin(southad),
-.ein(eastad),
-.win(westad),
+.inc(inc),
+.nsig(nsig),
+.ssig(ssig),
+.esig(esig),
+.wsig(wsig),
+//.lsig(lsig),
+.clksig(clksig),
 .clk(clk),
-.lin(lin),
-.nout(nad),
-.sout(sad),
-.eout(ead),
-.wout(wad),
-.lout(lad)
+.cachemiss(),
+.nout(nout),
+.sout(sout),
+.eout(eout),
+.wout(wout)//,
+.lout(lout)
 );
 
-/*cache_miss U1 (
-.flag(flag),
-.cachemiss(lin),
-.flagset(flagset)
-);*/
 
 endmodule

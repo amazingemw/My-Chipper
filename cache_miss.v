@@ -1,20 +1,29 @@
 module cache_miss(
-flag,
-cachemiss,
-flagset
+//flag,
+clk,
+cachemiss
+//flagset
 );
-input flag;
+//input flag;
+input clk;
 output [9:0] cachemiss;
-output flagset;
+//output flagset;
 
-wire flag;
+//wire flag;
+wire clk;
 reg [9:0] cachemiss;
-reg flagset;
+//reg flagset;
 
+integer i;
 reg [9:0] misslist [0:255];
-reg [9:0] counter;
+//reg [9:0] counter;
 
-integer count;
+always @ (posedge clk) begin
+cachemiss = misslist[i];
+i = i+1;
+end
+
+/*integer count;
 integer i;
 integer j;
 integer k;
@@ -25,18 +34,20 @@ integer o;
 integer p;
 integer q;
 integer r;
-integer s;
+integer s;*/
 
 initial begin 
-count=0;
-flagset = 0;
+
+//count=0;
+//flagset = 0;
+i = 0;
 misslist[0] = 10'b0111101101;
 misslist[1] = 10'b0111110100;
 misslist[2] = 10'b0111000000;
 misslist[3] = 10'bz;
 misslist[4] = 10'b0111001110;
 misslist[5] = 10'b0111101101;
-counter = 10'b1111111111;
+/*counter = 10'b1111111111;
 #60 $monitor("%g  \t %b  %d   ",$time, cachemiss, r);
 for (i = 0; i<2 ; i = i+1) begin
  counter[9] = ~counter[9];
@@ -74,14 +85,14 @@ for (i = 0; i<2 ; i = i+1) begin
   end
  end
 end
-#500 $finish;
+#500 $finish;*/
 end
 
-always @ (flag)
+/*always @ (flag)
 if (flag === 1) begin
 	for(s = 0; s < 255; s=s + 1) begin  
 		cachemiss = misslist[s];
 		flagset = 0; 
 	end
-end
+end*/
 endmodule
