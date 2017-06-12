@@ -15,7 +15,7 @@ wire [9:0] wout;
 wire [9:0] lout;
 
 always begin
-#5.5 clk = ~clk;
+#6 clk = ~clk;
 end
 
 initial begin

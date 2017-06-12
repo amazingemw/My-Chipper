@@ -29,10 +29,13 @@ reg [9:0] nad;               //0 is to east, 1 to west, 2 to north, 3 to south
 reg [9:0] sad;
 reg [9:0] ead;
 reg [9:0] wad;
-  
+
+integer limiter_flag;        //flag to limit injection to one per channel data change
+                                    
                                       
-always @(northad or localad)
-begin
+always @(northad or localad or southad or westad or eastad)  
+begin                            
+ limiter_flag = 0;           //re-initializing limit_flag value as zero at every data change
  directandfill(northad, localad, nad, nad[8:6]);     //function to fill a blank channel
  directandfill(southad, localad, sad, sad[8:6]);     //with a local channel
  directandfill( eastad, localad, ead, ead[8:6]);
@@ -51,7 +54,7 @@ task directandfill;
 
 	begin 
 	
-        	if (addr[5:0] === 6'bz) begin
+        	if (addr[5:0] === 6'bz && limiter_flag === 0) begin
 			adr = localad;
 	 		row = localad[5:3];  
 			col = localad[2:0]; 
@@ -72,6 +75,7 @@ task directandfill;
 					dir = 3'b100; 	        //LOCAL    
 				end
 	       		end
+			limiter_flag = 1;
 		end else begin
 			adr = addr;
 			dir = addr[8:6];

@@ -14,7 +14,7 @@ wire [9:0] lad;
 initial begin
     northad = 10'bz;
     southad = 10'b0000000101;
-    eastad  = 10'b1000100001;
+    eastad  = 10'b1000100100;//10'b1000100001;
     westad  = 10'b0000100100;
 
 #2  northad = 10'b1000100100; //l
@@ -27,14 +27,14 @@ initial begin
     eastad  = 10'b1000101100; //l
     westad  = 10'b0000100100; //w
 
-#2  northad = 10'b0000111100; //n
+#2  northad = 10'b0000101101;//10'b0000111100; //n
     southad = 10'b0000000011; //w
     eastad  = 10'b0000100100; //s
-    westad  = 10'b0000010101; //e
+    westad  = 10'b0000100100;//10'b0000010101; //e
 
-#2  northad = 10'b0000100100; //w
+#2  northad = 10'b0000111101; //w
     southad = 10'b0000110100; //n
-    eastad  = 10'bz; //e
+    eastad  = 10'b1000100100; //10'bz; //e
     westad  = 10'b0000100111; //l
 
 #2 $finish;

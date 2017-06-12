@@ -52,8 +52,8 @@ wty,
 clk,
 nxt,
 sxt,
-wxt,
-ext
+ext,
+wxt
 );
 
 

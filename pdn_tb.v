@@ -11,7 +11,6 @@ wire [9:0] west_out;
 
 
 initial begin
-   clk=0;
    north_in = 10'b0011001100; //to south
    south_in = 10'b0010101100; //to north
    east_in  = 10'b1010101100; //to north

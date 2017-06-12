@@ -68,7 +68,6 @@ wire [9:0] st3s;
 wire [9:0] st3e;
 wire [9:0] st3w;
 
-wire lclk;         //to set timing for cachemiss eject module
 
 pipeline_one U0(
 .inc(inc),
@@ -81,12 +80,12 @@ pipeline_one U0(
 .noun(st1n),
 .soun(st1s),
 .eoun(st1e),
-.woun(st1w),
-.lclk(lclk)
+.woun(st1w)
 );
 
 cache_miss U1(                 //needs the lclk from pipeline one
-.clk(lclk),
+.clk(clk),
+.clksig(clksig),
 .cachemiss(cachemiss)
 );
 
@@ -111,15 +110,15 @@ pipeline_two U3(
 .clk(clk),
 .nxt(st3n),
 .sxt(st3s),
-.wxt(st3w),
-.ext(st3e)
+.ext(st3e),
+.wxt(st3w)
 );
 
 pdn U4(
 .north_in(st3n),
-.south_in(st3n),
-.west_in(st3n),
-.east_in(st3n),
+.south_in(st3s),
+.west_in(st3w),
+.east_in(st3e),
 .north_out(nout),
 .south_out(sout),
 .east_out(eout),

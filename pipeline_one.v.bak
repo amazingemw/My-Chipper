@@ -12,7 +12,7 @@ clk,
 noun,
 soun,
 eoun,
-woun//,
+woun
 //loun
 );
 
@@ -44,7 +44,6 @@ reg [9:0] eoun;
 reg [9:0] woun;
 //reg [9:0] loun;
 
-reg lclk;
 reg [6:0] pipeline [0:19];
 integer i;
 integer j;
@@ -72,18 +71,13 @@ end*/
 //PROBLEM :with above green code clock is not alternating
 //Only work around is to initialise local clock with clksig trigger  
 
-always @ (posedge clksig or clk)begin
-	if(clksig === 1) begin      //initclk is second in deputy of clksig and permits
-		lclk = clk;         //lclk to take value of clk when clksig not available
-		initclk = 1;
-	end
-	else if(initclk === 1)
-		lclk = clk;
+always @ (posedge clksig)begin
+	initclk = 1;
 end
 
-always @ (nsig or ssig or esig or wsig or lclk) begin
+always @ (nsig or ssig or esig or wsig or clk) begin
 
-	if ( i < 21 && (nsig === 1 || ssig === 1 || esig === 1 || wsig === 1 /*|| lsig === 1) */)) begin
+	if ( (i < 21) && (initclk === 1) && (nsig === 1 || ssig === 1 || esig === 1 || wsig === 1 /*|| lsig === 1) */)) begin
 		if (nsig === 1) begin
 			pipeline [i] = inc;
 		end else if (ssig === 1) begin
@@ -104,7 +98,7 @@ always @ (nsig or ssig or esig or wsig or lclk) begin
 		k = 1;
 		end
 	end
-	if ( lclk === 1) begin
+	if ( (initclk === 1) && (clk === 1)) begin
 		{noun[9],noun[5:0]} = pipeline [0]; 
 		{soun[9],soun[5:0]} = pipeline [1]; 
 		{eoun[9],eoun[5:0]} = pipeline [2]; 

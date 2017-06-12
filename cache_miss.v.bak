@@ -18,7 +18,7 @@ integer i;
 reg [9:0] misslist [0:255];
 //reg [9:0] counter;
 
-always @ (posedge clk)
+always @ (posedge clk) begin
 cachemiss = misslist[i];
 i = i+1;
 end

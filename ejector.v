@@ -30,9 +30,12 @@ reg [9:0] ead;
 reg [9:0] wad;
 reg [9:0] lad;
 
+integer flag; //for limiting the ejection into local
 
-always @(northad)
+
+always @(northad or southad or eastad or westad)
 begin
+ flag = 0;        //limiter flag initialised as 0 at every data change on channel
  ejectout(northad, nad[5:0], nad[8:6],nad[9], lad);     //function to fill a blank channel
  ejectout(southad, sad[5:0], sad[8:6],sad[9], lad);     //with a local channel
  ejectout(eastad, ead[5:0], ead[8:6],ead[9], lad);
@@ -69,8 +72,13 @@ task ejectout;
 				dir = 3'b011;           //SOUTH
       			end
 			if ( row === 3'b100) begin
-				local = addr;
-				{gbo,dir,adr} = 10'bz;
+				if(flag === 0) begin		
+					local = addr;
+					{gbo,dir,adr} = 10'bz;
+					flag = 1;
+				end
+				else
+					dir = 3'b100;
 			end
        		end
 	end  //begin's end

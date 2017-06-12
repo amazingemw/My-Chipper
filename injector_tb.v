@@ -20,13 +20,13 @@ initial begin
   
    //$display("Time\t address Direction");
    //$monitor("%g  \t %b      %b",$time, addr, direct);
-#2  northad = 10'b1000100101; //l
+#2  northad = 10'bz;//1000100101; //l
     southad = 10'bz;   	      //e
     eastad  = 10'b0000101100; //n
-    westad  = 10'b0000011100; //w
+    westad  = 10'bz;//0000011100; //w
     localad = 10'b0000100000;
    
-#2  northad = 10'b0000100110; //e
+#2  northad = 10'bz;//0000100110; //e
     southad = 10'b0000000001; //w
     eastad  = 10'bz;          //l
     westad  = 10'b0000010001; //w
@@ -46,16 +46,16 @@ initial begin
 #5 $finish;
 end
 
-injector U0 (   //Connect DUT to test bench
- northad,
- southad,
- westad,
- eastad,        //0 is from east, 1 from west, 2 from north, 3 from south 
- localad,
- nad,           //0 is to east, 1 to west, 2 to north, 3 to south 
- sad,
- ead,
- wad
+injector U0 (           //Connect DUT to test bench
+.northad(northad),
+.southad(southad),
+.westad(westad),
+.eastad(eastad),        //0 is from east, 1 from west, 2 from north, 3 from south 
+.localad(localad),
+.nad(nad),              //0 is to east, 1 to west, 2 to north, 3 to south 
+.sad(sad),
+.ead(ead),
+.wad(wad)
 );
 
 endmodule

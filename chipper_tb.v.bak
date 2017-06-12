@@ -125,7 +125,7 @@ chipper U0 (
 .nout(nout),
 .sout(sout),
 .eout(eout),
-.wout(wout)//,
+.wout(wout),//,
 .lout(lout)
 );
 

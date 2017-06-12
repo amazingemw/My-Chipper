@@ -1,26 +1,40 @@
 module cache_miss(
 //flag,
 clk,
+clksig,
 cachemiss
 //flagset
 );
 //input flag;
 input clk;
+input clksig;
 output [9:0] cachemiss;
 //output flagset;
 
 //wire flag;
 wire clk;
+wire clksig;
 reg [9:0] cachemiss;
 //reg flagset;
 
 integer i;
+integer initclk;
 reg [9:0] misslist [0:255];
 //reg [9:0] counter;
 
+initial begin
+	initclk = 0;
+end
+
+always @ (posedge clksig) begin
+	initclk = 1;
+end
+
 always @ (posedge clk) begin
-cachemiss = misslist[i];
-i = i+1;
+	if(initclk) begin
+		cachemiss = misslist[i];
+		i = i+1;
+	end
 end
 
 /*integer count;
